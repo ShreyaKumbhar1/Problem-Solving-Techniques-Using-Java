@@ -1,0 +1,44 @@
+package pstj_Week2;
+
+import java.util.*;
+
+public class JavaDequeue_9 {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+
+		int n = sc.nextInt();
+		int m = sc.nextInt();
+
+		Deque<Integer> deque = new ArrayDeque<>();
+		HashMap<Integer, Integer> map = new HashMap<>();
+
+		int max = 0;
+
+		for (int i = 0; i < n; i++) {
+
+			int num = sc.nextInt();
+
+			deque.addLast(num);
+			map.put(num, map.getOrDefault(num, 0) + 1);
+
+			if (deque.size() > m) {
+				int removed = deque.removeFirst();
+				map.put(removed, map.get(removed) - 1);
+
+				if (map.get(removed) == 0) {
+					map.remove(removed);
+				}
+			}
+
+			if (deque.size() == m) {
+				max = Math.max(max, map.size());
+			}
+		}
+
+		System.out.println(max);
+
+		sc.close();
+	}
+}
